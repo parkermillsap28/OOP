@@ -1,12 +1,15 @@
-number1 = int(input("enter first number"))
-number2 = int(input("enter second number"))
-number3 = int(input("enter third number"))
-if number1 > number2 and number3:
-    print ("number1 is the biggest")
-elif number2 > number1 and number3:
-    print("number2 is the biggest")
-elif number3 > number1 and number2:
-    print("number3 is the biggest")
-elif number1 == number2 or number3:
-    print("invalid numbers")
-
+number1 = int(input("Please enter first number"))
+operator = input("Please enter operator")
+number2 = int(input("Please enter second number"))
+if operator == "+":
+    c = number1 + number2
+    print(c)
+elif operator == "-":
+    c = number1 - number2
+    print(c)
+elif operator == "*":
+    c = number1 * number2
+    print(c)
+elif operator == "/":
+    c = number1 / number2
+    print(c)
