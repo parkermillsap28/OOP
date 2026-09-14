@@ -15,10 +15,10 @@ while(1):
         print("List has been updated")
     elif choice == "3":
         remolist = input("enter an element to remove")
-        if remolist in list1:
+        while remolist in list1:
                 list1.remove(remolist)
                 print("List has been updated")
-        elif remolist not in list1:
+        else remolist not in list1:
                 print("element not in list, please enter a valid element")
     elif choice == "4":
         replist = input("enter an element to remove")
