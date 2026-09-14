@@ -11,15 +11,17 @@ while(1):
         list1 = []
         print("List has been created")
     elif choice == "2":
-        list1.append(input("enter a new element"))
+        add = input("Please enter an element to add. Type q when done adding to list")
+        while add != "q":
+            list1.append(add)
+            add = input("Enter a new element, or type q to stop: ")
         print("List has been updated")
     elif choice == "3":
-        remolist = input("enter an element to remove")
-        while remolist in list1:
-                list1.remove(remolist)
-                print("List has been updated")
-        else remolist not in list1:
-                print("element not in list, please enter a valid element")
+        sub = input("please enter an element to remove. Type q when done removing from list")
+        while sub != "q":
+            list1.remove(sub)
+            sub = input("Enter a new element, or type q to stop: ")
+        print("List has been updated")
     elif choice == "4":
         replist = input("enter an element to remove")
         if replist in list1:
