@@ -1,4 +1,4 @@
-while(1):
+while 1:
     print("1 Create a list")
     print("2 Add an element to list")
     print("3 Remove an element from list")
@@ -23,13 +23,11 @@ while(1):
             sub = input("Enter a new element, or type q to stop: ")
         print("List has been updated")
     elif choice == "4":
-        replist = input("enter an element to remove")
-        if replist in list1:
-            list1.remove(replist)
-            list1.append(input("enter an element to add"))
-            print("List has been updated")
-        else:
-            print("Element not is list")
+        old_element = input("please enter an element to remove: ")
+        new_element = input("please enter an element to add: ")
+        index = list1.index(old_element)
+        list1[index] = new_element
+        print("List has been updated")
     elif choice == "5":
         list1.sort()
         print("List has been updated")
