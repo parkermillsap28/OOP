@@ -27,7 +27,7 @@ def add_student():
         }
 
     )
-    i = n + 1
+i = n + 1
 
 def delete_student():
     del mystudents[input("Please enter s#: ")]
