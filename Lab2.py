@@ -2,21 +2,21 @@ myEmployees = {}
 i = 0
 def add_employee():
     name = input("Please enter employee name: ")
-    bpay = int(input("Please enter base pay amount: "))
+    basepay = int(input("Please enter base pay amount: "))
     allowance = int(input("Please enter allowance amount: "))
     deductions = int(input("Please enter total deductions: "))
     taxes = int(input("Please enter total taxes: "))
-    gpay = bpay + allowance
-    npay = gpay - deductions - taxes
+    grosspay = basepay + allowance
+    netpay = grosspay - deductions - taxes
     myEmployees.update(
         {"e"+str(i):{
-           "name":name,
-            "bpay":bpay,
+            "name":name,
+            "basepay":basepay,
             "allowance":allowance,
             "deductions":deductions,
             "taxes":taxes,
-            "gpay":gpay,
-            "npay":npay
+            "grosspay":grosspay,
+            "netpay":netpay
         }
 
         }
@@ -32,12 +32,12 @@ def modify_employee():
     e_id = input("Please enter employee id (e#): ")
     if e_id in myEmployees:
             myEmployees[e_id]["name"] = input("Please enter new employee name: ")
-            myEmployees[e_id]["bpay"] = int(input("Please enter new bpay amount: "))
-            myEmployees[e_id]["allowance"] = int(input("Please enter new allowance amount: "))
-            myEmployees[e_id]["deductions"] = int(input("Please enter new deductions: "))
-            myEmployees[e_id]["taxes"] = int(input("Please enter new taxes: "))
-            myEmployees[e_id]["gpay"] = ["bpay"] + ["allowance"]
-            myEmployees[e_id]["npay"] = ["gpay"] - ["deductions"] - ["taxes"]
+            myEmployees[e_id]["basepay"] = a = int(input("Please enter new base pay amount: "))
+            myEmployees[e_id]["allowance"] = b = int(input("Please enter new allowance amount: "))
+            myEmployees[e_id]["deductions"] = c = int(input("Please enter new deductions: "))
+            myEmployees[e_id]["taxes"] = d = int(input("Please enter new taxes: "))
+            myEmployees[e_id]["grosspay"] = g = a + b
+            myEmployees[e_id]["netpay"] = g - c - d
     elif e_id not in myEmployees:
         print("Please enter valid employee id (e#) ")
     else:
