@@ -9,7 +9,7 @@ def add_employee():
     grosspay = basepay + allowance
     netpay = grosspay - deductions - taxes
     myEmployees.update(
-        {"e"+str(i):{
+        {"e"+str(n):{
             "name":name,
             "basepay":basepay,
             "allowance":allowance,
@@ -54,7 +54,8 @@ while 1:
      choice = input("Please enter your choice: ")
 
      if choice == "1":
-        add_employee()
+        add_employee(i)
+         i = i+1
      elif choice == "2":
         delete_employee()
      elif choice == "3":
