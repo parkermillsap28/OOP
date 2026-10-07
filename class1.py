@@ -38,6 +38,7 @@ class Student:
         print("Name:", self.student_name)
         print("Major:", self.major)
         print("Courses:", self.student_courses)
+        print("Advisors:", self.student_advisor)
     def assign_advisor(self):
         faculty_id = input("Enter faculty ID: ")
         for faculty in myFaculty:
@@ -83,6 +84,7 @@ while 1:
     print("6. Assign Faculty to a course")
     print("7. Register a student to a course ")
     print("8. Display faculty")
+    print("9. Assign Advisor to a student")
     choice = int(input("Enter your choice: "))
     if choice == 1:
         new_student = Student()
@@ -114,6 +116,11 @@ while 1:
     elif choice == 8:
         for faculty in myFaculty:
             faculty.display_faculty()
+    elif choice == 9:
+        student_id = input("Enter student ID: ")
+        for student in myStudents:
+            if student.student_id == student_id:
+                student.assign_advisor()
     else:
         print("Invalid choice")
 
