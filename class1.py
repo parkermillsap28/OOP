@@ -9,10 +9,15 @@ class Faculty:
         self.faculty_id = input("Enter faculty ID: ")
         self.faculty_name = input("Enter faculty name: ")
         self.department = input("Enter department: ")
-        self.faculty_courses = None
+        self.faculty_courses = ""
     def enroll_student(self, student):
         self.faculty_id = student.id
         self.faculty_name = student.name
+    def display_faculty(self):
+        print("ID:", self.faculty_id)
+        print("Name:", self.faculty_name)
+        print("Major:", self.department)
+        print("Courses:", self.faculty_courses)
 
 
 class Student:
@@ -21,13 +26,13 @@ class Student:
         self.student_name = ""
         self.major = ""
         self.student_courses = ""
-        self.student_advisor = None
+        self.student_advisor = ""
 
     def create_new_student(self):
         self.student_id = input("Enter student ID: ")
         self.student_name = input("Enter student name: ")
         self.major = input("Enter student major: ")
-        self.student_courses = None
+        self.student_courses = ""
     def display_student(self):
         print("ID:", self.student_id)
         print("Name:", self.student_name)
@@ -45,7 +50,7 @@ class Student:
 class Courses:
     def __init__(self):
         self.course_name = ""
-        self.faculty = None
+        self.faculty = ""
     def create_course(self):
         self.course_name = input("Enter course name: ")
 
@@ -59,9 +64,9 @@ class Courses:
                 print("Invalid faculty ID")
     def register_student(self):
         student_id = input("Enter student ID: ")
-        for Student in myStudents:
-            if student_id.myStudents == student_id:
-                self.course_name = Student.student_courses
+        for student in myStudents:
+            if student.student_id == student_id:
+                self.course_name = student.student_courses
                 print("Student assigned")
             else:
                 print("Invalid student ID")
@@ -77,6 +82,7 @@ while 1:
     print("5. Exit")
     print("6. Assign Faculty to a course")
     print("7. Register a student to a course ")
+    print("8. Display faculty")
     choice = int(input("Enter your choice: "))
     if choice == 1:
         new_student = Student()
@@ -101,8 +107,13 @@ while 1:
             if course.course_name == course_name:
                 course.assign_faculty()
     elif choice == 7:
-        for student in myStudents:
-            student.register_student()
+        course_name = input("Enter course name: ")
+        for course in myCourses:
+            if course.course_name == course_name:
+                course.register_student()
+    elif choice == 8:
+        for faculty in myFaculty:
+            faculty.display_faculty()
     else:
         print("Invalid choice")
 
