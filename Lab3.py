@@ -64,11 +64,8 @@ class User:
         print("Email:", self.email_id)
         print("Books Checked Out:", self.books_borrowed)
     def check_out_book(self):
-        for book in library:
-            user_id = input("Enter user id: ")
-            if user.user_id == self.user_id:
-                self.books_borrowed = book.book_title
-                print("Book checked out")
+        self.books_borrowed = book.book_title
+        print("Book checked out")
 library = []
 users = []
 authors = []
@@ -91,10 +88,17 @@ while 1:
         for book in library:
             book.display_books()
     elif choice == "3":
+        user_id = input("Enter user id: ")
         book_id = input("Enter book id: ")
-        for book in library:
-            if book.book_id == book_id:
-                user.check_out_book()
+        for user in users:
+            if user.user_id == user_id:
+                    for book in library:
+                        if book.book_id == book_id:
+                            user.check_out_book()
+                        else:
+                            print("Book not found")
+            else:
+                print("User not found")
     elif choice == "4":
         user = User()
         user.create_user()
