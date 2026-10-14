@@ -97,7 +97,7 @@ while 1:
     elif choice == "3":
         book_id = input("Enter book id: ")
         for book in b1:
-            if book.book_id == book_id:
+            if b1.book_id == book_id:
                 user.check_out_book()
     elif choice == "4":
         user.create_user()
