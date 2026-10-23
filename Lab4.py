@@ -1,4 +1,5 @@
-import pickle
+AllCustomers = []
+AllCreditCards = []
 class Customer:
     def __init__(self):
         self.cid = ""
@@ -11,27 +12,51 @@ class Customer:
         self.cid = input("Enter customer id: ")
         self.cname = input("Enter customer name: ")
         self.acc_no = input("Enter customer account number: ")
-        self.balance = input("Enter customer balance: ")
+        self.balance = int(input("Enter customer balance: "))
     def add_balance(self):
-        new_balance = int(input("Enter balance to add: "))
-        self.balance = self.balance + new_balance
-        print("New balance is: ", self.balance)
+        target_customer = input("Enter customer id: ")
+        for customer in AllCustomers:
+            if customer.cid == target_customer:
+                new_balance = int(input("Enter balance to add: "))
+                customer.balance = customer.balance + new_balance
+                print("New balance is: ", self.balance)
+            else:
+                print("Invalid customer ID")
     def transfer_funds(self):
-        pass
+        sender_id= input("Enter the customer's id that is transferring funds: ")
+        receiver_id = input("Enter customer's id that is receiving funds: ")
+        transfer = int(input("Enter transfer amount: "))
+        for customer in AllCustomers:
+            if customer.cid == sender_id:
+                sender_id = customer
+                if sender_id.balance > 0:
+                    customer.balance = customer.balance - transfer
+                    print("New balance for sender is:", sender_id.balance)
+                else:
+                    print("Insufficient funds")
+        for customer in AllCustomers:
+            if customer.cid == receiver_id:
+                receiver_id = customer
+                customer.balance = customer.balance + transfer
+                print("New balance for receiver is:", receiver_id.balance)
+
     def assign_card(self):
-        card = input("Enter card number: ")
-        customerfile1 = open("customer.dat", "ab")
-        for cust_card in customerfile1:
-            if card == Card.card_no:
-                self.credit_card.append(cust_card)
+        target_card = input("Enter card number: ")
+        target_cid = input("Enter customer id: ")
+        for card in AllCreditCards:
+            if card.card_no == target_card:
+                for customer in AllCustomers:
+                    if customer.cid == target_cid:
+                        customer.credit_card.append(target_card)
+                        print(target_card, "now assigned to:", target_cid)
+
     def display_customer_info(self):
-        customer_file1 = open("customer.dat", "rb")
-        while (1):
-            try:
-                customer = pickle.load(customer_file1)
-                print("Customer ID: ", customer.cid,"| Customer name: ", customer.cname,"| Customer account number: ", customer.acc_no,"| Customer balance: ", customer.balance,"| Customer credit card: ", customer.credit_card)
-            except EOFError:
-                break
+        for customer in AllCustomers:
+            print("Customer ID: ", customer.cid)
+            print("Customer Name: ", customer.cname)
+            print("Customer Account Number: ", customer.acc_no)
+            print("Customer Balance: ", customer.balance)
+            print("Customer Card Number: ", customer.credit_card)
 
 
 
@@ -47,13 +72,11 @@ class Card:
         self.expiry_date = input("Enter expiry date: ")
         self.balance = input("Enter balance: ")
     def display_card_info(self):
-        card_file1 = open("card.dat", "rb")
-        while (1):
-            try:
-                card = pickle.load(card_file1)
-                print("Card NO: ", card.card_no,"| Card CVV: ", card.cvv,"| Card Expiry Date: ", card.expiry_date,"| Card balance: ", card.balance)
-            except EOFError:
-                break
+       for card in AllCreditCards:
+            print("card number: ", card.card_no)
+            print("cv number: ", card.cvv)
+            print("expiry date: ", card.expiry_date)
+            print("balance: ", card.balance)
 
 Cust = Customer()
 creditcard = Card()
@@ -67,23 +90,24 @@ while 1:
     print("7. Exit")
     choice = input("Enter your choice: ")
     if choice == "1":
-        Cust.create_customer()
-        customer_file = open("customer.dat", "ab")
-        pickle.dump(Cust, customer_file)
-        customer_file.close()
+        new_cust = Customer()
+        new_cust.create_customer()
+        AllCustomers.append(new_cust)
         print("Customer created successfully")
-    if choice == "2":
-        creditcard.create_card()
-        credit_file = open("credit_card.dat", "ab")
-        pickle.dump(creditcard, credit_file)
-        credit_file.close()
+    elif choice == "2":
+        new_card = Card()
+        new_card.create_card()
+        AllCreditCards.append(new_card)
         print("Credit card created successfully")
-    if choice == "3":
-        pass
-    if choice == "4":
+    elif choice == "3":
+        Cust.transfer_funds()
+    elif choice == "4":
         Cust.assign_card()
-    if choice == "5":
+    elif choice == "5":
         Cust.display_customer_info()
-    if choice == "6":
-        Card.display
-
+    elif choice == "6":
+        creditcard.display_card_info()
+    elif choice == "7":
+        exit()
+    else:
+        print("Invalid input")
