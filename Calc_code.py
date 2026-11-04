@@ -1,5 +1,4 @@
 MyCategories = []
-#Make something that detects if the budget has dropped below 0
 class Calculator:
     def __init__(self):
         self.user_income = int(input("What is your current income? "))
@@ -13,12 +12,15 @@ class Calculator:
             for cat in MyCategories:
                 if cat.category == category:
                     using = cat
-                else:
-                    using = "not found"
+                    break
             if using in MyCategories:
                 amount = int(input("Please enter the amount to be added: "))
-                self.budget = self.budget - amount
-                using.budget = using.budget + amount
+                if self.budget - amount < 0:
+                    print("Budget cannot be negative")
+                    break
+                else:
+                    self.budget = self.budget - amount
+                    using.budget = using.budget + amount
 
             else:
                 print("Please enter a valid category")
@@ -31,12 +33,15 @@ class Calculator:
             for cat in MyCategories:
                 if cat.category == category:
                     using = cat
-                else:
-                    using = "not found"
+                    break
             if using in MyCategories:
                 amount = int(input("Please enter the amount to be subtracted: "))
-                self.budget = self.budget + amount
-                using.budget = using.budget - amount
+                if using.budget - amount < 0:
+                    print("Budget cannot be negative")
+                    break
+                else:
+                    self.budget = self.budget + amount
+                    using.budget = using.budget - amount
     def display_income(self):
         print("Starting Income Amount: ", self.user_income)
         print("Budget remaining: ", self.budget)
@@ -51,15 +56,27 @@ class Category:
         self.category = new_category
         self.budget = int(input("Please enter the starting budget: "))
         self.weight = int(input("Please enter the weight in percent: "))
+    def remove_category(self):
+        pass
     def display_categories(self):
         print(self.category)
         print(self.budget)
     def update_weights(self):
         wghtdcat = input("Enter a category to be updated: ")
-        if wghtdcat in MyCategories:
-            self.weight = int(input("Enter new weight in percent: "))
-            if self.weight > 100:
-                print("Please enter a valid percent")
+        found = None
+        for cat in MyCategories:
+            if wghtdcat == cat.category:
+                found = cat
+                break
+        if found:
+            new_weight = int(input("Enter new weight in percent: "))
+            total = sum(cat.weight for cat in MyCategories) - self.weight + new_weight
+            if total > 100:
+                print("Cannot add weight---exceeds total income")
+            else:
+                self.weight = new_weight
+        else:
+            print("Category not found")
 
 Calc = Calculator()
 
@@ -67,21 +84,25 @@ Calc = Calculator()
 
 while (1):
     print("Please choose one of the following options:")
-    print("1. Make a new category")
+    print("1. Make a new budget category")
     print("2. Add to a category")
     print("3. Subtract from a category")
     print("4. Display categories")
-    print("5. Update weights for categories")
+    print("5. Update weights for budget categories")
     print("6. Display remaining income")
     print("7. Exit")
     choice = input("Enter your choice: ")
     if choice == "1":
         category = Category()
         category.new_category()
-        MyCategories.append(category)
-        percent = category.weight / 100
-        category.budget = category.budget + Calc.user_income * percent
-        Calc.budget = Calc.budget - Calc.user_income * percent
+        total_weight = sum(cat.weight for cat in MyCategories) + category.weight
+        if total_weight > 100:
+            print("Cannot add category---exceeds total income")
+        else:
+            MyCategories.append(category)
+            percent = category.weight / 100
+            category.budget = category.budget + Calc.user_income * percent
+            Calc.budget = Calc.budget - Calc.user_income * percent
     if choice == "2":
         Calc.calc_add()
     if choice == "3":
@@ -94,8 +115,12 @@ while (1):
     if choice == "5":
         for category in MyCategories:
             category.update_weights()
-            percent = category.weight/100
-            category.budget = category.budget + Calc.user_income * percent
+            total_weight = sum(cat.weight for cat in MyCategories) + category.weight
+            if total_weight > 100:
+                print("Cannot add category---exceeds total income")
+            else:
+                percent = category.weight/100
+                category.budget = category.budget + Calc.user_income * percent
     if choice == "6":
         Calc.display_income()
     if choice == "7":
