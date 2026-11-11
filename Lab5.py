@@ -21,7 +21,7 @@ mycursor.execute("""
                     FacultyID INT PRIMARY KEY,
                     Name VARCHAR(50),
                     Department VARCHAR(50),
-                    Taught Courses VARCHAR(50) 
+                    Taught_Courses VARCHAR(50) 
                     )
                 """)
 class Student_Master:
@@ -37,8 +37,8 @@ class Student_Master:
         self.stu_major = input("Enter Student Major: ")
         self.stu_courses = input("Enter Student Courses: ")
         self.stu_cgpa = input("Enter Student GPA: ")
-        sql = "INSERT INTO Student VALUES (%s,%s,%s,%s,%s)"
-        values = (self.stu_id, self.stu_name, self.stu_major, self.stu_courses, self.stu_cgpa)
+        sql = "INSERT INTO Student VALUES (%s,%s,%s,%s,%s, %s)"
+        values = (self.stu_id, self.stu_name, self.department, self.stu_major, self.stu_courses, self.stu_cgpa)
         mycursor.execute(sql, values)
         mydb.commit()
         print("Student created")
